@@ -1,7 +1,7 @@
 # Reproducible Research: Peer Assessment 1
 This is my first an R Markdown file. And with project RepData Course Project 1
 
-##Loading and preprocessing the data
+## Loading and preprocessing the data
 * 1.Load the data (i.e. read.csv())
 * 2.Process the data
 
@@ -10,9 +10,9 @@ This is my first an R Markdown file. And with project RepData Course Project 1
 dat_activity <- read.csv("activity.csv")
 ```
 
-##What is mean total number of steps taken per day?
+## What is mean total number of steps taken per day?
 
-###1.Calculate the total number of steps taken per day
+### 1.Calculate the total number of steps taken per day
 
 ```r
 totalStepsPerDay <- aggregate(steps ~ date, 
@@ -20,7 +20,7 @@ data = dat_activity,
 FUN = sum)
 ```
 
-###2.Make a histogram of the total number of steps taken each day
+### 2.Make a histogram of the total number of steps taken each day
 
 ```r
 hist(totalStepsPerDay$steps,xlab = "Total number of steps per day",
@@ -29,7 +29,7 @@ hist(totalStepsPerDay$steps,xlab = "Total number of steps per day",
 
 ![](PA1_template_files/figure-html/histogram1-1.png)<!-- -->
 
-###3.Calculate and report the mean and median of the total number of steps taken per day
+### 3.Calculate and report the mean and median of the total number of steps taken per day
 
 ```r
 mean(totalStepsPerDay$steps)
@@ -47,8 +47,8 @@ median(totalStepsPerDay$steps)
 ## [1] 10765
 ```
 
-##What is the average daily activity pattern?
-###1.Make a plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+## What is the average daily activity pattern?
+### 1.Make a plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 ```r
 stepsPerInterval <- aggregate(steps ~ interval, data = dat_activity,
@@ -58,21 +58,21 @@ with(stepsPerInterval,plot(x = interval,y = steps,type="l"))
 
 ![](PA1_template_files/figure-html/plot1-1.png)<!-- -->
 
-###2.Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+### 2.Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
 
 ```r
 maxStepsInterval <- stepsPerInterval$interval[which.max(stepsPerInterval$steps)]
 ```
 
-##Imputing missing values
-###1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+## Imputing missing values
+### 1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
 ```r
 missing <- nrow(dat_activity[!is.na(dat_activity),])
 ```
 
-###2.Devise a strategy for filling in all of the missing values in the dataset. 
-###3.Create a new dataset that is equal to the original dataset but with the missing data filled in.
+### 2.Devise a strategy for filling in all of the missing values in the dataset. 
+### 3.Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
 ```r
 fill_activity <- dat_activity
@@ -85,7 +85,7 @@ for (i in 1:nrow(fill_activity)) {
 }
 ```
 
-###4.Make a histogram of the total number of steps taken each day
+### 4.Make a histogram of the total number of steps taken each day
 
 ```r
 totalStepsPerDayFill <- aggregate(steps ~ date, data = fill_activity,
