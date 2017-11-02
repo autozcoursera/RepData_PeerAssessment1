@@ -24,7 +24,8 @@ FUN = sum)
 
 ```r
 hist(totalStepsPerDay$steps,xlab = "Total number of steps per day",
-     main = "Histogram of total number of steps per day in US")
+     main = "Histogram of total number of steps per day in US",
+     breaks = seq(0, 26000, 2000))
 ```
 
 ![](PA1_template_files/figure-html/histogram1-1.png)<!-- -->
@@ -101,7 +102,8 @@ for (i in 1:nrow(fill_activity)) {
 totalStepsPerDayFill <- aggregate(steps ~ date, data = fill_activity,
                               FUN = sum)
 hist(totalStepsPerDayFill$steps,xlab = "Total number of steps per day",
-     main = "Histogram of total number of steps per day (fill)")
+     main = "Histogram of total number of steps per day (fill)",
+     breaks = seq(0, 26000, 2000))
 ```
 
 ![](PA1_template_files/figure-html/histogram2-1.png)<!-- -->
