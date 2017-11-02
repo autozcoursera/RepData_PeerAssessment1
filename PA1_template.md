@@ -62,13 +62,23 @@ with(stepsPerInterval,plot(x = interval,y = steps,type="l"))
 
 ```r
 maxStepsInterval <- stepsPerInterval$interval[which.max(stepsPerInterval$steps)]
+print(maxStepsInterval)
+```
+
+```
+## [1] 835
 ```
 
 ## Imputing missing values
 ### 1.Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
 
 ```r
-missing <- nrow(dat_activity[!is.na(dat_activity),])
+missing <- nrow(dat_activity[is.na(dat_activity),])
+print(missing)
+```
+
+```
+## [1] 2304
 ```
 
 ### 2.Devise a strategy for filling in all of the missing values in the dataset. 
@@ -122,6 +132,7 @@ It does not seen to change to much about mean between fill or not fill data. But
 
 
 ```r
+#at first change language to English by default
 Sys.setlocale("LC_ALL","English")
 fill_activity$daytype <- "Weekdays"
 fill_activity$daytype[weekdays(as.Date(fill_activity$date)) %in% c("Saturday", "Sunday")] <- "Weekend"
@@ -136,7 +147,7 @@ interStepsAllDayType <- aggregate(steps ~ interval * daytype,
                                   FUN = mean)
 xyplot(steps~interval | daytype ,
        data = interStepsAllDayType,
-       layout=c(1,2),type="l")
+       layout=c(1,2),type="l",main="Compare steps by interval of two days type")
 ```
 
 ![](PA1_template_files/figure-html/panelplot-1.png)<!-- -->
