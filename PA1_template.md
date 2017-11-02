@@ -15,16 +15,16 @@ dat_activity <- read.csv("activity.csv")
 ### 1.Calculate the total number of steps taken per day
 
 ```r
-totalStepsPerDay <- aggregate(steps ~ date, 
-data = dat_activity,
-FUN = sum)
+totalStepsPerDay <- aggregate(steps ~ date,
+                              data = dat_activity,
+                              FUN = sum)
 ```
 
 ### 2.Make a histogram of the total number of steps taken each day
 
 ```r
-hist(totalStepsPerDay$steps,xlab = "Total number of steps per day",
-     main = "Histogram of total number of steps per day in US",
+hist(totalStepsPerDay$steps,xlab = "Total Steps per Day",
+     main = "Histogram of Total Number of Steps per Day",
      breaks = seq(0, 26000, 2000))
 ```
 
@@ -52,9 +52,13 @@ median(totalStepsPerDay$steps)
 ### 1.Make a plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
 ```r
-stepsPerInterval <- aggregate(steps ~ interval, data = dat_activity,
+stepsPerInterval <- aggregate(steps ~ interval,
+                              data = dat_activity,
                               FUN = mean)
-with(stepsPerInterval,plot(x = interval,y = steps,type="l"))
+with(stepsPerInterval,plot(x = interval,y = steps,type="l",
+                           main = "Plot With Average Steps per Interval",
+                           xlab = "Each 5-minutes Interval",
+                           ylab = "Average Steps"))
 ```
 
 ![](PA1_template_files/figure-html/plot1-1.png)<!-- -->
@@ -99,10 +103,11 @@ for (i in 1:nrow(fill_activity)) {
 ### 4.Make a histogram of the total number of steps taken each day
 
 ```r
-totalStepsPerDayFill <- aggregate(steps ~ date, data = fill_activity,
-                              FUN = sum)
-hist(totalStepsPerDayFill$steps,xlab = "Total number of steps per day",
-     main = "Histogram of total number of steps per day (fill)",
+totalStepsPerDayFill <- aggregate(steps ~ date,
+                                  data = fill_activity,
+                                  FUN = sum)
+hist(totalStepsPerDayFill$steps,xlab = "Total Steps per Day",
+     main = "Histogram of Total Number of Steps per Day (Fill)",
      breaks = seq(0, 26000, 2000))
 ```
 
@@ -137,7 +142,8 @@ It does not seen to change to much about mean between fill or not fill data. But
 #at first change language to English by default
 Sys.setlocale("LC_ALL","English")
 fill_activity$daytype <- "Weekdays"
-fill_activity$daytype[weekdays(as.Date(fill_activity$date)) %in% c("Saturday", "Sunday")] <- "Weekend"
+fill_activity$daytype[weekdays(as.Date(fill_activity$date)) %in%
+                          c("Saturday","Sunday")] <- "Weekend"
 ```
 
 ### 2.Make a panel plot of all weekday days or weekend days
@@ -149,7 +155,10 @@ interStepsAllDayType <- aggregate(steps ~ interval * daytype,
                                   FUN = mean)
 xyplot(steps~interval | daytype ,
        data = interStepsAllDayType,
-       layout=c(1,2),type="l",main="Compare steps by interval of two days type")
+       layout=c(1,2),type="l",
+       main="Compare Steps at Each Interval with Two Days Type",
+       xlab = "Each 5-minutes Interval",
+       ylab = "Average Steps")
 ```
 
 ![](PA1_template_files/figure-html/panelplot-1.png)<!-- -->
